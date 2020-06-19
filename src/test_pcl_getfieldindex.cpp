@@ -4,8 +4,8 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
-template<class CloutPtr>
-void printFields(CloutPtr cloud)
+template<typename CloudPtr>
+void printFields(CloudPtr cloud)
 {
 	sensor_msgs::PointCloud2 ros_cloud;
 	pcl::toROSMsg(*cloud, ros_cloud);
