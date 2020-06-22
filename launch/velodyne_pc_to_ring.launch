@@ -13,6 +13,5 @@
 
 	<!-- main -->
 	<node pkg="test_package" name="velodyne_pc_to_rings" type="velodyne_pc_to_rings" output="screen">
-		<!-- <param name="skip" type="int" value="3"/> -->
 	</node>
 </launch>
