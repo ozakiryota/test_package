@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(test_package)
 
+add_compile_options(-std=c++11 -O2 -g -Wall)
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -190,3 +192,6 @@ include_directories(
 # catkin_add_nosetests(test)
 add_executable(test_pcl_getfieldindex src/test_pcl_getfieldindex.cpp)
 target_link_libraries(test_pcl_getfieldindex ${catkin_LIBRARIES})
+#
+add_executable(velodyne_pc_to_rings src/velodyne_pc_to_rings.cpp)
+target_link_libraries(velodyne_pc_to_rings ${catkin_LIBRARIES})
