@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   PCL
+  OpenCV
 )
 
 ## System dependencies are found with CMake's conventions
@@ -119,6 +120,7 @@ catkin_package(
 include_directories(
   ${catkin_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -195,3 +197,6 @@ target_link_libraries(test_pcl_getfieldindex ${catkin_LIBRARIES})
 #
 add_executable(velodyne_pc_to_rings src/velodyne_pc_to_rings.cpp)
 target_link_libraries(velodyne_pc_to_rings ${catkin_LIBRARIES})
+#
+add_executable(print_jpg src/print_jpg.cpp)
+target_link_libraries(print_jpg ${catkin_LIBRARIES} ${OpenCV_INCLUDE_DIRS})

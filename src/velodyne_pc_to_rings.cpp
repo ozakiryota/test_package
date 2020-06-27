@@ -47,7 +47,7 @@ VelodynePCToRings::VelodynePCToRings()
 	/*initialize*/
 	_rings.resize(_num_ring);
 	for(size_t i=0 ; i<_rings.size() ; ++i){
-		pcl::PointCloud<pcl::PointXYZI>::Ptr tmp {new pcl::PointCloud<pcl::PointXYZI>};
+		pcl::PointCloud<pcl::PointXYZI>::Ptr tmp (new pcl::PointCloud<pcl::PointXYZI>);
 		_rings[i] = tmp;
 	}
 }
