@@ -200,3 +200,6 @@ target_link_libraries(velodyne_pc_to_rings ${catkin_LIBRARIES})
 #
 add_executable(print_jpg src/print_jpg.cpp)
 target_link_libraries(print_jpg ${catkin_LIBRARIES} ${OpenCV_INCLUDE_DIRS})
+#
+add_executable(test_eigen_quaternion src/test_eigen_quaternion.cpp)
+target_link_libraries(test_eigen_quaternion ${catkin_LIBRARIES})
