@@ -192,14 +192,17 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-add_executable(test_pcl_getfieldindex src/test_pcl_getfieldindex.cpp)
-target_link_libraries(test_pcl_getfieldindex ${catkin_LIBRARIES})
+add_executable(test_pcl_getfieldlist src/test_pcl_getfieldlist.cpp)
+target_link_libraries(test_pcl_getfieldlist ${catkin_LIBRARIES})
 #
 add_executable(velodyne_pc_to_rings src/velodyne_pc_to_rings.cpp)
 target_link_libraries(velodyne_pc_to_rings ${catkin_LIBRARIES})
 #
 add_executable(print_jpg src/print_jpg.cpp)
-target_link_libraries(print_jpg ${catkin_LIBRARIES} ${OpenCV_INCLUDE_DIRS})
+target_link_libraries(print_jpg ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 #
 add_executable(test_eigen_quaternion src/test_eigen_quaternion.cpp)
 target_link_libraries(test_eigen_quaternion ${catkin_LIBRARIES})
+#
+add_executable(print_pc_fieldlist src/print_pc_fieldlist.cpp)
+target_link_libraries(print_pc_fieldlist ${catkin_LIBRARIES})
