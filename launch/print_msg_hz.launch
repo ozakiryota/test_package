@@ -1,0 +1,17 @@
+<launch>
+	<!-- global rosparam -->
+	<param name="use_sim_time" value="true"/>
+
+	<!-- rosbag -->
+	<!-- <node pkg="rosbag" type="play" name="player" args="&#45;&#45;clock /home/amsl/ozaki/bagfiles/infant/indoor_dkan/2019&#45;04&#45;04&#45;14&#45;27&#45;47.bag"/> -->
+	<node pkg="rosbag" type="play" name="player" args="--clock /home/amsl/ozaki/docker_ws/airsim_ros_wrapper/bagfiles/drone_1cam_lidar_202008091113.bag"/>
+
+	<!-- sensor driver -->
+	<!-- <include file="$(find velodyne_pointcloud)/launch/32e_points.launch"/> -->
+
+	<!-- main -->
+	<node pkg="test_package" name="print_msg_hz" type="print_msg_hz" output="screen">
+		<!-- <remap from="/cloud" to="/velodyne_points"/> -->
+		<remap from="/cloud" to="/airsim_node/drone/lidar/LidarCustom"/>
+	</node>
+</launch>

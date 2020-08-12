@@ -206,3 +206,6 @@ target_link_libraries(test_eigen_quaternion ${catkin_LIBRARIES})
 #
 add_executable(print_pc_fieldlist src/print_pc_fieldlist.cpp)
 target_link_libraries(print_pc_fieldlist ${catkin_LIBRARIES})
+#
+add_executable(print_msg_hz src/print_msg_hz.cpp)
+target_link_libraries(print_msg_hz ${catkin_LIBRARIES})
