@@ -209,3 +209,6 @@ target_link_libraries(print_pc_fieldlist ${catkin_LIBRARIES})
 #
 add_executable(print_msg_hz src/print_msg_hz.cpp)
 target_link_libraries(print_msg_hz ${catkin_LIBRARIES})
+#
+add_executable(test_time_measurment src/test_time_measurment.cpp)
+target_link_libraries(test_time_measurment ${catkin_LIBRARIES})
