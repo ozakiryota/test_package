@@ -212,3 +212,6 @@ target_link_libraries(print_msg_hz ${catkin_LIBRARIES})
 #
 add_executable(test_time_measurment src/test_time_measurment.cpp)
 target_link_libraries(test_time_measurment ${catkin_LIBRARIES})
+#
+add_executable(print_pc_size src/print_pc_size.cpp)
+target_link_libraries(print_pc_size ${catkin_LIBRARIES})
