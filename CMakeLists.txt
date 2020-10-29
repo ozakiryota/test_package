@@ -14,6 +14,9 @@ find_package(catkin REQUIRED COMPONENTS
   OpenCV
 )
 
+## for "cnpy"
+# link_directories(/usr/local/lib)
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -215,3 +218,6 @@ target_link_libraries(test_time_measurment ${catkin_LIBRARIES})
 #
 add_executable(print_pc_size src/print_pc_size.cpp)
 target_link_libraries(print_pc_size ${catkin_LIBRARIES})
+#
+# add_executable(test_cnpy src/test_cnpy.cpp)
+# target_link_libraries(test_cnpy ${catkin_LIBRARIES} cnpy)
