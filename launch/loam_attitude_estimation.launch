@@ -1,0 +1,64 @@
+<launch>
+	<!-- global rosparam -->
+	<param name="use_sim_time" value="true"/>
+
+	<!-- rosbag -->
+	<!-- <node pkg="rosbag" type="play" name="player" args="&#45;&#45;clock /home/amsl/ozaki/bagfiles/stick_imu4cam/dynamic/dkan_outdoor/20201024_160325.bag"/> -->
+	<node pkg="rosbag" type="play" name="player" args="--clock /home/amsl/ozaki/bagfiles/stick_vlp32imu4cam/with_vicon/20201213_183636.bag"/>
+
+	<!-- rviz -->
+	<node pkg="rviz" type="rviz" name="rviz" args="-d $(find test_package)/rviz_config/loam_attitude_estimation.rviz"/>
+
+	<!-- velodyne -->
+	<!-- <include file="$(find velodyne_pointcloud)/launch/32e_points.launch"/> -->
+	<include file="$(find velodyne_pointcloud)/launch/VLP-32C_points.launch"/>
+
+	<!-- loam -->
+	<!-- <include file="$(find loam_velodyne)/launch/loam_velodyne.launch"/> -->
+	<include file="$(find loam_velodyne)/launch/hector_loam_velodyne.launch"/>
+
+	<!-- compared approaches -->
+	<node pkg="gyrodometry" name="gyrodometry3d" type="gyrodometry3d">
+		<param name="wait_inipose" type="bool" value="false"/>
+	</node>
+
+	<!-- msg conversion -->
+	<node pkg="msg_conversion" type="odometry_zxy_to_xyz" name="odometry_zxy_to_xyz">
+		<remap from="/odom" to="/integrated_to_init"/>
+		<remap from="/odom/change_axis" to="/loam/odom"/>
+	</node>
+	<node pkg="msg_conversion" type="odometry_to_rpy" name="loam_to_rpy">
+		<remap from="/odom" to="/loam/odom"/>
+		<remap from="/rpy" to="/loam/rpy"/>
+	</node>
+	<node pkg="msg_conversion" type="odometry_to_rpy" name="gyrodometry_to_rpy">
+		<remap from="/odom" to="/gyrodometry"/>
+		<remap from="/rpy" to="/gyrodometry/rpy"/>
+	</node>
+	<node pkg="msg_conversion" type="tf_to_posestamped" name="tf_to_posestamped">
+		<param name="parent_frame_id" type="string" value="/world"/>
+		<param name="child_frame_id" type="string" value="/vicon/sensors/sensors"/>
+	</node>
+	<node pkg="msg_conversion" type="posestamped_reset_origin" name="posestamped_reset_origin">
+		<remap from="/pose" to="/tf_to_posestamped"/>
+		<param name="parent_frame_id" type="string" value="/world"/>
+		<param name="child_frame_id" type="string" value="/tf_to_posestamped/reset"/>
+	</node>
+	<node pkg="msg_conversion" name="posestamped_to_rpy" type="posestamped_to_rpy">
+		<remap from="/pose" to="/pose/reset_origin"/>
+		<remap from="/rpy" to="/gt/rpy"/>
+	</node>
+
+	<!-- evaluation -->
+	<param name="erase_old_data" type="bool" value="True"/>
+	<param name="save_csv" type="bool" value="True"/>
+	<param name="interval" type="double" value="0.01"/>
+	<param name="/num_sub" type="int" value="1"/>
+	<param name="/method0" type="str" value="LOAM"/>
+	<param name="/method1" type="str" value="Gyro"/>
+	<node pkg="msg_printer" type="compare_rp_with_gt.py" name="compare_rp_with_gt" output="screen">
+		<remap from="/truth/rpy" to="/gt/rpy"/>
+		<remap from="/estimation0/rpy" to="/loam/rpy"/>
+		<remap from="/estimation1/rpy" to="/gyrodometry/rpy"/>
+	</node>
+</launch>
